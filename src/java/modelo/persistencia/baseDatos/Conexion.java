@@ -1,5 +1,7 @@
 package Modelo.Persistencia.baseDatos;
 
+import java.sql.*;
+
 /**
  * @author Amaury Ortega
  * @version 1.0
@@ -7,21 +9,33 @@ package Modelo.Persistencia.baseDatos;
  */
 public class Conexion {
 
-	private static String CLASSNAME;
-	public java.sql.Connection con;
-	private static String DATABASE;
-	private static String HOST;
-	private static String PASSWORD;
-	private static String PORT;
-	private static String URL;
-	private static String USERNAME;
+    private static String CLASSNAME = "com.mysql.jdbc.Driver";
+    public java.sql.Connection con;
+    private static String DATABASE = "clasificate";
+    private static String HOST = "localhost";
+    private static String PASSWORD = "clasificate";
+    private static String PORT = "3306";
+    private static String URL = "jdbc:mysql://localhost:" + PORT + "/" + DATABASE;
+    private static String USERNAME = "usuario_clasificate";
 
-	public Conexion(){
+    public Conexion() {
+        try {
+            Class.forName(CLASSNAME);
+            try {
+                con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            } catch (SQLException ex) {
+                // log an exception. fro example:
+                System.out.println(ex.getMessage());
+                System.out.println("Failed to create the database connection.");
+            }
+        } catch (ClassNotFoundException ex) {
+            // log an exception. for example:
+            System.out.println("Driver not found.");
+        }
+    }
 
-	}
-
-	public void finalize() throws Throwable {
-
-	}
+    public void finalize() throws Throwable {
+        super.finalize();
+    }
 
 }//end Conexion
