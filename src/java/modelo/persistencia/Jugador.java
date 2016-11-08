@@ -100,5 +100,11 @@ public class Jugador {
         this.sexo = sexo;
     }
 
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+    }
+
+    
     
 }

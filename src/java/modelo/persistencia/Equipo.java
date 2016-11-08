@@ -75,4 +75,14 @@ public class Equipo {
         return true;
     }
 
+    @Override
+    protected void finalize() throws Throwable {
+        for(int i=0;i<jugadores.size();i++){
+            jugadores.get(i).getMediciones().finalize();
+            jugadores.get(i).finalize();
+        }
+        super.finalize();
+    }
+
+    
 }

@@ -104,6 +104,12 @@ public class Mediciones {
     public void setSaltoLargoDistancia(float saltoLargoDistancia) {
         this.saltoLargoDistancia = saltoLargoDistancia;
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+    }
+    
     
     
 }

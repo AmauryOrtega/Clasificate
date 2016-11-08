@@ -48,7 +48,11 @@ public class Main {
         
         bd = new BaseDeDatos();
         Equipo test = new Equipo("equipo1", "colombia");
-        test.agregarJugador(new Jugador(2, 1143397229, 19, "amaury ortega", 70, "Masculino"));
+        Jugador testJ = new Jugador(2, 1143397229, 19, "amaury ortega", 70, "Masculino");
+        //testJ.setMediciones();
+        //test.agregarJugador();
+        
+        test.agregarJugador(new Jugador(2, 1143397229, 19, "amaury ortega2", 70, "Masculino"));
         
         bd.registrarEquipo(test);
     }
