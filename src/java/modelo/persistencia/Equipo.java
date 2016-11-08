@@ -22,15 +22,13 @@ public class Equipo {
         jugadores = new ArrayList<Jugador>();
     }
 
-    public Equipo(int id, String nombre, String nacionalidad) {
-        this.id = id;
+    public Equipo(ArrayList<Jugador> jugadores, String nombre, String nacionalidad) {
+        this.jugadores = jugadores;
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
     }
 
-    public Equipo(int id, ArrayList<Jugador> jugadores, String nombre, String nacionalidad) {
-        this.id = id;
-        this.jugadores = jugadores;
+    public Equipo(String nombre, String nacionalidad) {
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
     }
@@ -71,6 +69,10 @@ public class Equipo {
     public String toString() {
         return "Equipo{" + "id=" + id + ", jugadores=" + jugadores + ", nombre=" + nombre + ", nacionalidad=" + nacionalidad + '}';
     }
-
     
+    public boolean agregarJugador(Jugador jugador){
+        this.jugadores.add(jugador);
+        return true;
+    }
+
 }
