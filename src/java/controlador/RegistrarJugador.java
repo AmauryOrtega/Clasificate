@@ -6,17 +6,20 @@
 package controlador;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.persistencia.Equipo;
+import modelo.persistencia.Jugador;
+import modelo.persistencia.Mediciones;
 
 /**
  *
  * @author Amaury Ortega
  */
-public class RegistrarInfoBasicaEquipo extends HttpServlet {
+public class RegistrarJugador extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,23 +32,26 @@ public class RegistrarInfoBasicaEquipo extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Validar que los campos que vienen no esten en blanco
-        //nombreEquipo = request.getParameter("txtNombre");
-//        int ed = 0;
-//        try {
-//            ed = Integer.parseInt(edad);
-//        } catch (NumberFormatException ex) {
-//            request.getRequestDispatcher("errornumero.jsp").forward(request, response);
-//        }
+        String nombreJ = "nombre jugador";
+        int cedulaJ = 123456789;
+        String sexoJ = "MASCULINO";
+        int edadJ = 19;
+        float cooper = 1900;
+        int burpee = 25;
+        int fuerzaBrazos = 25;
+        float saltoAlto = 56;
+        float saltoLargo = 2.0f;
+        float ruffierP1 = 100;
+        float ruffierP2 = 100;
+        float ruffierP3 = 50;
+        float peso = 76;
+        float altura = 2;
+        int elasticidad = 6;
 
-        //Guardar variable en sesion
-        //Equipo equipo = new Equipo(...);
-        //request.getSession().setAttribute("equipo", equipo);
-        String nombreEquipo = "NombreEquipo";
-        String nacionalidad = "Nacionalidad";
-        Equipo equipo = new Equipo(nombreEquipo, nacionalidad);
+        Jugador jugador = new Jugador(altura, cedulaJ, edadJ, new Mediciones(burpee, cooper, elasticidad, fuerzaBrazos, ruffierP1, ruffierP2, ruffierP3, saltoAlto, saltoLargo), nombreJ, peso, sexoJ);
+        Equipo equipo = (Equipo)request.getSession().getAttribute("equipo");
+        equipo.agregarJugador(jugador);
         request.getSession().setAttribute("equipo", equipo);
-        //request.getRequestDispatcher("registrarjugador").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

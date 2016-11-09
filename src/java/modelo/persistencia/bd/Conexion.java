@@ -1,4 +1,4 @@
-package Modelo.Persistencia.baseDatos;
+package modelo.persistencia.bd;
 
 import java.sql.*;
 

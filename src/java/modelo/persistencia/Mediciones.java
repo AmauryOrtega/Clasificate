@@ -11,17 +11,17 @@ package modelo.persistencia;
  */
 public class Mediciones {
 
-    private float burpeeCantidad;
+    private int burpeeCantidad;
     private float cooperDistancia;
-    private float elasticidadCantidad;
-    private float fuerzaBrazosCantidad;
+    private int elasticidadCantidad;
+    private int fuerzaBrazosCantidad;
     private float ruffierP1;
     private float ruffierP2;
     private float ruffierP3;
     private float saltoAltoDistancia;
     private float saltoLargoDistancia;
 
-    public Mediciones(float burpeeCantidad, float cooperDistancia, float elasticidadCantidad, float fuerzaBrazosCantidad, float ruffierP1, float ruffierP2, float ruffierP3, float saltoAltoDistancia, float saltoLargoDistancia) {
+    public Mediciones(int burpeeCantidad, float cooperDistancia, int elasticidadCantidad, int fuerzaBrazosCantidad, float ruffierP1, float ruffierP2, float ruffierP3, float saltoAltoDistancia, float saltoLargoDistancia) {
         this.burpeeCantidad = burpeeCantidad;
         this.cooperDistancia = cooperDistancia;
         this.elasticidadCantidad = elasticidadCantidad;
@@ -33,11 +33,11 @@ public class Mediciones {
         this.saltoLargoDistancia = saltoLargoDistancia;
     }
 
-    public float getBurpeeCantidad() {
+    public int getBurpeeCantidad() {
         return burpeeCantidad;
     }
 
-    public void setBurpeeCantidad(float burpeeCantidad) {
+    public void setBurpeeCantidad(int burpeeCantidad) {
         this.burpeeCantidad = burpeeCantidad;
     }
 
@@ -49,19 +49,19 @@ public class Mediciones {
         this.cooperDistancia = cooperDistancia;
     }
 
-    public float getElasticidadCantidad() {
+    public int getElasticidadCantidad() {
         return elasticidadCantidad;
     }
 
-    public void setElasticidadCantidad(float elasticidadCantidad) {
+    public void setElasticidadCantidad(int elasticidadCantidad) {
         this.elasticidadCantidad = elasticidadCantidad;
     }
 
-    public float getFuerzaBrazosCantidad() {
+    public int getFuerzaBrazosCantidad() {
         return fuerzaBrazosCantidad;
     }
 
-    public void setFuerzaBrazosCantidad(float fuerzaBrazosCantidad) {
+    public void setFuerzaBrazosCantidad(int fuerzaBrazosCantidad) {
         this.fuerzaBrazosCantidad = fuerzaBrazosCantidad;
     }
 
@@ -109,7 +109,10 @@ public class Mediciones {
     protected void finalize() throws Throwable {
         super.finalize();
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return "Mediciones{" + "burpeeCantidad=" + burpeeCantidad + ", cooperDistancia=" + cooperDistancia + ", elasticidadCantidad=" + elasticidadCantidad + ", fuerzaBrazosCantidad=" + fuerzaBrazosCantidad + ", ruffierP1=" + ruffierP1 + ", ruffierP2=" + ruffierP2 + ", ruffierP3=" + ruffierP3 + ", saltoAltoDistancia=" + saltoAltoDistancia + ", saltoLargoDistancia=" + saltoLargoDistancia + '}';
+    }
+
 }

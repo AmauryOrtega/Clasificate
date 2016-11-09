@@ -6,17 +6,21 @@
 package controlador;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.persistencia.Equipo;
+import modelo.persistencia.Jugador;
+import modelo.persistencia.Mediciones;
+import modelo.persistencia.bd.BaseDeDatos;
 
 /**
  *
  * @author Amaury Ortega
  */
-public class RegistrarInfoBasicaEquipo extends HttpServlet {
+public class RegistrarEquipo extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,23 +33,57 @@ public class RegistrarInfoBasicaEquipo extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Validar que los campos que vienen no esten en blanco
-        //nombreEquipo = request.getParameter("txtNombre");
-//        int ed = 0;
-//        try {
-//            ed = Integer.parseInt(edad);
-//        } catch (NumberFormatException ex) {
-//            request.getRequestDispatcher("errornumero.jsp").forward(request, response);
-//        }
+        String nombreJ = "nombre jugador2";
+        int cedulaJ = 999956789;
+        String sexoJ = "MASCULINO";
+        int edadJ = 19;
+        float cooper = 2000;
+        int burpee = 30;
+        int fuerzaBrazos = 30;
+        float saltoAlto = 60;
+        float saltoLargo = 2.5f;
+        float ruffierP1 = 100;
+        float ruffierP2 = 100;
+        float ruffierP3 = 50;
+        float peso = 80;
+        float altura = 1.5f;
+        int elasticidad = 5;
+        Jugador jugador = new Jugador(altura, cedulaJ, edadJ, new Mediciones(burpee, cooper, elasticidad, fuerzaBrazos, ruffierP1, ruffierP2, ruffierP3, saltoAlto, saltoLargo), nombreJ, peso, sexoJ);
+        Equipo equipo = (Equipo) request.getSession().getAttribute("equipo");
+        equipo.agregarJugador(jugador);
 
-        //Guardar variable en sesion
-        //Equipo equipo = new Equipo(...);
-        //request.getSession().setAttribute("equipo", equipo);
-        String nombreEquipo = "NombreEquipo";
-        String nacionalidad = "Nacionalidad";
-        Equipo equipo = new Equipo(nombreEquipo, nacionalidad);
-        request.getSession().setAttribute("equipo", equipo);
-        //request.getRequestDispatcher("registrarjugador").forward(request, response);
+        //Guardado en base de datos
+        BaseDeDatos bd = new BaseDeDatos();
+        bd.registrarEquipo(equipo);
+        
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet RegistrarEquipo</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>El ID del equipo es " + equipo.getId() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+        
+        try {
+            equipo.finalize();
+        } catch (Throwable ex) {
+            try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet RegistrarEquipo</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Error eliminando equipo de sesion\n" + ex.getMessage() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

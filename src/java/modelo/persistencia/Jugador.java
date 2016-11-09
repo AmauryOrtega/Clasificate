@@ -101,7 +101,14 @@ public class Jugador {
     }
 
     @Override
-    protected void finalize() throws Throwable {
+    public String toString() {
+        return "Jugador{" + "altura=" + altura + ", cedula=" + cedula + ", edad=" + edad + ", mediciones=" + mediciones + ", nombre_completo=" + nombre_completo + ", peso=" + peso + ", sexo=" + sexo + '}';
+    }
+    
+    
+
+    @Override
+    public void finalize() throws Throwable {
         super.finalize();
     }
 

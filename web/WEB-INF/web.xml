@@ -4,9 +4,25 @@
         <servlet-name>RegistrarInfoBasicaEquipo</servlet-name>
         <servlet-class>controlador.RegistrarInfoBasicaEquipo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegistrarJugador</servlet-name>
+        <servlet-class>controlador.RegistrarJugador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegistrarEquipo</servlet-name>
+        <servlet-class>controlador.RegistrarEquipo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrarInfoBasicaEquipo</servlet-name>
         <url-pattern>/registrarinfobasicaequipo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistrarJugador</servlet-name>
+        <url-pattern>/registrarjugador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistrarEquipo</servlet-name>
+        <url-pattern>/registrarequipo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

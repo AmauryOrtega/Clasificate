@@ -31,6 +31,7 @@ public class Equipo {
     public Equipo(String nombre, String nacionalidad) {
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
+        jugadores = new ArrayList<Jugador>();
     }
 
     public String getNombre() {
@@ -67,22 +68,25 @@ public class Equipo {
 
     @Override
     public String toString() {
-        return "Equipo{" + "id=" + id + ", jugadores=" + jugadores + ", nombre=" + nombre + ", nacionalidad=" + nacionalidad + '}';
+        String salida = "Equipo{" + "id=" + id + ", nombre=" + nombre + ", nacionalidad=" + nacionalidad + "\n";
+        for (int i = 0; i < jugadores.size(); i++) {
+            salida += "Jugador #" + i + " " + jugadores.get(i) + "\n";
+        }
+        return salida + '}';
     }
-    
-    public boolean agregarJugador(Jugador jugador){
+
+    public boolean agregarJugador(Jugador jugador) {
         this.jugadores.add(jugador);
         return true;
     }
 
     @Override
-    protected void finalize() throws Throwable {
-        for(int i=0;i<jugadores.size();i++){
+    public void finalize() throws Throwable {
+        for (int i = 0; i < jugadores.size(); i++) {
             jugadores.get(i).getMediciones().finalize();
             jugadores.get(i).finalize();
         }
         super.finalize();
     }
 
-    
 }
