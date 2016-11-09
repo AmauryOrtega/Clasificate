@@ -19,8 +19,6 @@ body{
 }
 
 
-
-
 hr {
     border: 1px solid blue;
     height: 2px;
@@ -37,7 +35,7 @@ hr {
 }
 #logo-header {
     float: left;
-    padding: 15px 0 0 20px;
+    padding: 8px 0 0 20px;
     text-decoration: none;
 }
 #logo-header:hover {
@@ -48,6 +46,10 @@ hr {
     display: block;
     font-weight: 700;
     font-size: 1.2em;
+    position: relative;
+    top: 25px;
+
+    align-items: center;
 }
 
 #logo-header .site-desc {
@@ -55,6 +57,7 @@ hr {
     font-weight: 300;
     font-size: 0.8em;
     color: #999;
+
 }
 
 
@@ -179,5 +182,11 @@ a{
     left: 0; /* Posicionamos la cabecera al lado izquierdo */
     top: 0; /* Posicionamos la cabecera pegada arriba */
     position: fixed; /* Hacemos que la cabecera tenga una posición fija */
+}
+
+.logot{
+    display:flex; 
+    top: 0px;
+
 }
 

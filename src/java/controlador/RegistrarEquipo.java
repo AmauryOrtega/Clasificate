@@ -7,6 +7,8 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +57,7 @@ public class RegistrarEquipo extends HttpServlet {
         //Guardado en base de datos
         BaseDeDatos bd = new BaseDeDatos();
         bd.registrarEquipo(equipo);
-        
+
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
@@ -68,22 +70,25 @@ public class RegistrarEquipo extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
         }
-        
+
         try {
             equipo.finalize();
+            request.getSession().removeAttribute("equipo");
+            bd.finalize();
         } catch (Throwable ex) {
             try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RegistrarEquipo</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Error eliminando equipo de sesion\n" + ex.getMessage() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Servlet RegistrarEquipo</title>");
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>Error eliminando variables\n" + ex.getMessage() + "</h1>");
+                out.println("</body>");
+                out.println("</html>");
+            }
         }
-        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
