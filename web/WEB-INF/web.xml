@@ -12,6 +12,10 @@
         <servlet-name>RegistrarEquipo</servlet-name>
         <servlet-class>controlador.RegistrarEquipo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GenerarReporte</servlet-name>
+        <servlet-class>controlador.GenerarReporte</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrarInfoBasicaEquipo</servlet-name>
         <url-pattern>/registrarinfobasicaequipo</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>RegistrarEquipo</servlet-name>
         <url-pattern>/registrarequipo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GenerarReporte</servlet-name>
+        <url-pattern>/generarreporte</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

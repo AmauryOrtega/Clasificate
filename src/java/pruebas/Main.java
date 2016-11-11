@@ -5,6 +5,10 @@
  */
 package pruebas;
 
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import modelo.generarReporte.Reporte;
 import modelo.persistencia.bd.BaseDeDatos;
 import modelo.persistencia.Equipo;
 import modelo.persistencia.Jugador;
@@ -52,6 +56,24 @@ public class Main {
 
     public static void main(String[] args) {
 
+        //Ejemplo para buscar equipo en bd
+        int id = 12;
+        Registro.getInstance();
+        BaseDeDatos bd = new BaseDeDatos();
+
+        if (bd.buscar(id)) {
+            Equipo equipo = Registro.getInstance().buscar(id);//Toma los datos del equipo para el pdf
+            System.out.println(equipo);
+        }
+        try{
+            bd.finalize();
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        } catch (Throwable ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         /*Ejemplo para buscar equipo
         BaseDeDatos bd = new BaseDeDatos();
         Registro.getInstance().getEquipos();
@@ -108,4 +130,4 @@ try (PrintWriter out = response.getWriter()) {
     out.println("</body>");
     out.println("</html>");
 }
-*/
+ */

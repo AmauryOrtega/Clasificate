@@ -97,4 +97,9 @@ public class Reporte {
         this.resultado_IMC = resultado_IMC;
     }
 
+    @Override
+    public String toString() {
+        return "Reporte{" + "resultado_burpee=" + resultado_burpee + ", resultado_cooper=" + resultado_cooper + ", resultado_elasticidad=" + resultado_elasticidad + ", resultado_fuerzaBrazos=" + resultado_fuerzaBrazos + ", resultado_ruffier=" + resultado_ruffier + ", resultado_salgoLargo=" + resultado_salgoLargo + ", resultado_saltoAlto=" + resultado_saltoAlto + ", resultado_IMC=" + resultado_IMC + '}';
+    }
+
 }

@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import modelo.persistencia.Equipo;
+import modelo.persistencia.Jugador;
+import modelo.persistencia.Mediciones;
 import modelo.persistencia.Registro;
 
 /**
@@ -50,10 +52,42 @@ public class BaseDeDatos extends Conexion {
                         equipo.setNombre(rs.getString("nombre"));
                         equipo.setId(Integer.parseInt(rs.getString("id")));
                         equipo.setNacionalidad(rs.getString("nacionalidad"));
-                        //Almacenar los jugadores del equipo en equipo
                     } while (rs.next());
                 } catch (SQLException ex) {
                     System.out.println("Error recorriendo el result set al buscar el equipo en bd\n" + ex.getMessage());
+                }
+                //Almacenar los jugadores del equipo en equipo
+                Jugador jugador = null;
+                try {
+                    stmt = con.createStatement();
+                    rs = stmt.executeQuery("select * from jugador where idEquipo=" + id);
+                } catch (SQLException ex) {
+                    System.out.println("Error buscando jugadores del equipo en bd\n" + ex.getMessage());
+                }
+                try {
+                    while(rs.next()){
+                        jugador = new Jugador();
+                        Mediciones mediciones = new Mediciones(
+                                Integer.parseInt(rs.getString("burpeeCantidad")), 
+                                Float.parseFloat(rs.getString("cooperCantidad")), 
+                                Integer.parseInt(rs.getString("elasticidadCantidad")), 
+                                Integer.parseInt(rs.getString("fuerzaBrazosCantidad")), 
+                                Float.parseFloat(rs.getString("ruffierP1")), 
+                                Float.parseFloat(rs.getString("ruffierP2")), 
+                                Float.parseFloat(rs.getString("ruffierP3")), 
+                                Float.parseFloat(rs.getString("saltoAltoDistancia")), 
+                                Float.parseFloat(rs.getString("saltoLargoDistancia"))
+                        );
+                        jugador.setNombre_completo(rs.getString("nombre_completo"));
+                        jugador.setCedula(Integer.parseInt(rs.getString("cedula")));
+                        jugador.setSexo(rs.getString("sexo"));
+                        jugador.setEdad(Integer.parseInt(rs.getString("edad")));
+                        jugador.setPeso(Float.parseFloat(rs.getString("peso")));
+                        jugador.setMediciones(mediciones);
+                        equipo.agregarJugador(jugador);
+                    }
+                } catch (SQLException ex) {
+                    System.out.println("Error verificando si el result set esta vacio\n" + ex.getMessage());
                 }
                 Registro.getInstance().getEquipos().add(equipo);
                 return true;
