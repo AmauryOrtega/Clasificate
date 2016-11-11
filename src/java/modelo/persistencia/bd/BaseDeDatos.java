@@ -83,6 +83,7 @@ public class BaseDeDatos extends Conexion {
                         jugador.setSexo(rs.getString("sexo"));
                         jugador.setEdad(Integer.parseInt(rs.getString("edad")));
                         jugador.setPeso(Float.parseFloat(rs.getString("peso")));
+                        jugador.setAltura(Float.parseFloat(rs.getString("altura")));
                         jugador.setMediciones(mediciones);
                         equipo.agregarJugador(jugador);
                     }
@@ -145,6 +146,7 @@ public class BaseDeDatos extends Conexion {
                         + "'" + equipo.getJugadores().get(i).getSexo() + "'" + ","
                         + equipo.getJugadores().get(i).getEdad() + ","
                         + "'" + equipo.getJugadores().get(i).getNombre_completo() + "'" + ","
+                        + equipo.getJugadores().get(i).getAltura()+ ","
                         + equipo.getJugadores().get(i).getPeso() + ","
                         + equipo.getJugadores().get(i).getMediciones().getFuerzaBrazosCantidad() + ","
                         + equipo.getJugadores().get(i).getMediciones().getBurpeeCantidad() + ","

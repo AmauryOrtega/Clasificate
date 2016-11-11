@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,21 +10,8 @@ import modelo.persistencia.Jugador;
 import modelo.persistencia.Mediciones;
 import modelo.persistencia.bd.BaseDeDatos;
 
-/**
- *
- * @author Amaury Ortega
- */
 public class RegistrarEquipo extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String nombreJ = "";
@@ -97,18 +76,8 @@ public class RegistrarEquipo extends HttpServlet {
                     altura = Float.parseFloat(request.getParameter("txtAltura").replace(',', '.'));
                 }
             } catch (Exception e2) {
-                response.setContentType("text/html;charset=UTF-8");
-                try (PrintWriter out = response.getWriter()) {
-                    out.println("<!DOCTYPE html>");
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<title>Servlet RegistrarJugador</title>");
-                    out.println("</head>");
-                    out.println("<body>");
-                    out.println("<h1>Excepcion capturada " + e2.toString() + "</h1>");
-                    out.println("</body>");
-                    out.println("</html>");
-                }
+                request.getSession().setAttribute("mensaje", "Hubo un problema obteniendo los datos del jugador a crear");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
             }
             //Fin Obtencion de informacion
         } catch (Exception avoid) {
@@ -121,27 +90,14 @@ public class RegistrarEquipo extends HttpServlet {
             jugador = new Jugador(altura, cedulaJ, edadJ, new Mediciones(burpee, cooper, elasticidad, fuerzaBrazos, ruffierP1, ruffierP2, ruffierP3, saltoAlto, saltoLargo), nombreJ, peso, sexoJ);
             equipo = (Equipo) request.getSession().getAttribute("equipo");
             equipo.agregarJugador(jugador);
-
-            //Eliminar variables
-            //TODO
-            request.getSession().removeAttribute("equipo");
         } catch (Exception e) {
             //Mensajes de error
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Servlet RegistrarJugador</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Excepcion capturada creando al jugador</h1>");
-                out.println("<h1>" + e.getLocalizedMessage() + "</h1>");
-                out.println("<h1>" + jugador + "</h1>");
-                out.println("<h1>" + equipo + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+            request.getSession().setAttribute("mensaje", "Hubo un problema obteniendo los datos del jugador a crear");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        } catch (Throwable ex) {
+            //Mensajes de error
+            request.getSession().setAttribute("mensaje", "Hubo un problema obteniendo los datos del jugador a crear");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
 
         //Almacenado BD
@@ -152,57 +108,26 @@ public class RegistrarEquipo extends HttpServlet {
             bd.finalize();
         } catch (Exception e) {
             //Mensajes de error
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Servlet RegistrarJugador</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Excepcion capturada usando la BD</h1>");
-                out.println("<h1>" + e.getLocalizedMessage() + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+            request.getSession().setAttribute("mensaje", "Hubo un problema con la base de datos, porfavor pruebe mas tarde");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         } catch (Throwable ex) {
             response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Servlet RegistrarJugador</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Excepcion capturada Throwable</h1>");
-                out.println("<h1>" + ex.getLocalizedMessage() + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+            request.getSession().setAttribute("mensaje", "Hubo un problema con la base de datos, porfavor pruebe mas tarde");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
 
         //ID
         request.getSession().setAttribute("id", equipo.getId());
         request.getRequestDispatcher("ok.jsp").forward(request, response);
-        //request.getSession().removeAttribute("ID");
-        /*
-        ---Pruebas---
-        String nombreJ = "nombre jugador2";
-        int cedulaJ = 999956789;
-        String sexoJ = "MASCULINO";
-        int edadJ = 19;
-        float cooper = 2000;
-        int burpee = 30;
-        int fuerzaBrazos = 30;
-        float saltoAlto = 60;
-        float saltoLargo = 2.5f;
-        float ruffierP1 = 100;
-        float ruffierP2 = 100;
-        float ruffierP3 = 50;
-        float peso = 80;
-        float altura = 1.5f;
-        int elasticidad = 5;
-         */
+        try {
+            // Eliminar variables
+            equipo.finalize();
+            request.getSession().removeAttribute("equipo");
+        } catch (Throwable ex) {
+            request.getSession().setAttribute("mensaje", "Hubo un problema elimiando valores de sesion, porfavor pruebe mas tarde");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

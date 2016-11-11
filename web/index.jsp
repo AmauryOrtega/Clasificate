@@ -41,7 +41,7 @@
         <div class="botones">
             <div class= "boton" ><center> <button type="submit"><a href="Registrar-Equipo.jsp">Registrar Equipo</a></button></center></div>
 
-            <div class= "boton"><center><button type="submit"><a href="Generar-Reporte.html">Generar Reporte </a></button></center></div>
+            <div class= "boton"><center><button type="submit"><a href="Generar-Reporte.jsp">Generar Reporte </a></button></center></div>
         </div>
 
 

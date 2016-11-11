@@ -1,7 +1,6 @@
 package controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,21 +9,8 @@ import modelo.persistencia.Equipo;
 import modelo.persistencia.Jugador;
 import modelo.persistencia.Mediciones;
 
-/**
- *
- * @author Amaury Ortega
- */
 public class RegistrarJugador extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -85,17 +71,8 @@ public class RegistrarJugador extends HttpServlet {
             }
         } catch (Exception e2) {
             response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Servlet RegistrarJugador</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Excepcion capturada " + e2.toString() + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+            request.getSession().setAttribute("mensaje", "Error inesperado, porfavor intente mas tarde");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
         Jugador jugador = null;
         Equipo equipo = null;
@@ -104,51 +81,13 @@ public class RegistrarJugador extends HttpServlet {
             equipo = (Equipo) request.getSession().getAttribute("equipo");
             equipo.agregarJugador(jugador);
             request.getSession().setAttribute("equipo", equipo);
-
-            //Eliminar variables
-            //TODO
             request.getRequestDispatcher("exitoJugador.jsp").forward(request, response);
             //request.getRequestDispatcher("Registrar-Jugador.jsp").forward(request, response);
         } catch (Exception e) {
             //Mensajes de error
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Servlet RegistrarJugador</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Excepcion capturada creando al jugador</h1>");
-                out.println("<h1>" + e.getLocalizedMessage() + "</h1>");
-                out.println("<h1>" + jugador + "</h1>");
-                out.println("<h1>" + equipo + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+            request.getSession().setAttribute("mensaje", "Error inesperado, porfavor intente mas tarde");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
-        /*
-        ---Pruebas--
-        String nombreJ = "nombre jugador";
-        int cedulaJ = 123456789;
-        String sexoJ = "MASCULINO";
-        int edadJ = 19;
-        float cooper = 1900;
-        int burpee = 25;
-        int fuerzaBrazos = 25;
-        float saltoAlto = 56;
-        float saltoLargo = 2.0f;
-        float ruffierP1 = 100;
-        float ruffierP2 = 100;
-        float ruffierP3 = 50;
-        float peso = 76;
-        float altura = 2;
-        int elasticidad = 6;
-        Jugador jugador = new Jugador(altura, cedulaJ, edadJ, new Mediciones(burpee, cooper, elasticidad, fuerzaBrazos, ruffierP1, ruffierP2, ruffierP3, saltoAlto, saltoLargo), nombreJ, peso, sexoJ);
-        Equipo equipo = (Equipo)request.getSession().getAttribute("equipo");
-        equipo.agregarJugador(jugador);
-        request.getSession().setAttribute("equipo", equipo);
-         */
     }
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 

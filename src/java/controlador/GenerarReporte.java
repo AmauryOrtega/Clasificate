@@ -1,13 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
-import java.awt.Graphics2D;
-import java.awt.print.PageFormat;
-import java.awt.print.Paper;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -16,31 +20,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.qoppa.pdfWriter.PDFDocument;
-import com.qoppa.pdfWriter.PDFPage;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import modelo.generarReporte.Reporte;
 import modelo.persistencia.Equipo;
 import modelo.persistencia.Registro;
 import modelo.persistencia.bd.BaseDeDatos;
-import sun.reflect.generics.visitor.Reifier;
 
-/**
- *
- * @author Amaury Ortega
- */
 public class GenerarReporte extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
@@ -51,92 +37,93 @@ public class GenerarReporte extends HttpServlet {
                 BaseDeDatos bd = new BaseDeDatos();
                 if (bd.buscar(Integer.parseInt(id))) {
                     equipo = Registro.getInstance().buscar(Integer.parseInt(id));
-                    response.setContentType("text/html;charset=UTF-8");
-                    try (PrintWriter out = response.getWriter()) {
-                        out.println("<!DOCTYPE html>");
-                        out.println("<html>");
-                        out.println("<head>");
-                        out.println("<title>Servlet RegistrarInfoBasicaEquipo</title>");
-                        out.println("</head>");
-                        out.println("<body>");
-                        out.println("<h1>Equipo buscado</h1>");
-                        out.println("<h1>" + equipo.getJugadores() + "</h1>");
-                        for (int i = 0; i < equipo.getJugadores().size(); i++) {
-                            out.println("<h5>" + equipo.getJugadores().get(i).getNombre_completo() + ":" + equipo.getJugadores().get(i).getCedula() + "\t" + (new Reporte(equipo.getJugadores().get(i))).toString() + "</h5>");
-                        }
-                        out.println("</body>");
-                        out.println("</html>");
+                    try {
+                        bd.finalize();
+                    } catch (Exception e) {
+                        request.getSession().setAttribute("mensaje", "Hubo un problema con la base de datos, porfavor pruebe mas tarde");
+                        request.getRequestDispatcher("error.jsp").forward(request, response);
+                    } catch (Throwable ex) {
+                        request.getSession().setAttribute("mensaje", "Hubo un problema con la base de datos, porfavor pruebe mas tarde");
+                        request.getRequestDispatcher("error.jsp").forward(request, response);
                     }
-                }else{
+
+                    //PDF
+                    Document doc = new Document();
+                    ByteArrayOutputStream baosPDf = new ByteArrayOutputStream();
+                    PdfWriter docWriter = null;
+                    docWriter = PdfWriter.getInstance(doc, baosPDf);
+                    //META data
+                    doc.addCreationDate();
+                    doc.addTitle("Reporte para equipo con ID " + equipo.getId());
+                    doc.setPageSize(PageSize.LETTER.rotate());
+
+                    //Parrafos
+                    doc.open();
+                    doc.add(new Paragraph("Reporte ID(" + equipo.getId() + ")"));
+
+                    Paragraph parrafo = new Paragraph("El equipo de balonecesto \"" + equipo.getNombre().toUpperCase() + "\" con ID \"" + equipo.getId() + "\" de nacionalidad \"" + equipo.getNacionalidad().toUpperCase() + "\"");
+                    //Tamaños de fuentes
+                    Font bfBold12 = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD, new BaseColor(0, 0, 0));
+                    Font bf12 = new Font(Font.FontFamily.TIMES_ROMAN, 11);
+                    //Ancho de columnas
+                    float[] anchoColumnas = {4f, 2f, 2f, 2f, 2f, 2f, 2f, 2f, 2f};
+                    //Crear tabla usando los anchos
+                    PdfPTable table = new PdfPTable(anchoColumnas);
+                    //Porcentaje de la pagina usado por la tabla
+                    table.setWidthPercentage(95f);
+                    //Cabezales de las columnas
+                    insertCell(table, "Jugador(ID)", Element.ALIGN_LEFT, 1, bfBold12);
+                    insertCell(table, "Burpee", Element.ALIGN_LEFT, 1, bfBold12);
+                    insertCell(table, "Cooper", Element.ALIGN_LEFT, 1, bfBold12);
+                    insertCell(table, "Elasticidad", Element.ALIGN_LEFT, 1, bfBold12);
+                    insertCell(table, "Fuerza de Brazos", Element.ALIGN_LEFT, 1, bfBold12);
+                    insertCell(table, "Ruffier", Element.ALIGN_LEFT, 1, bfBold12);
+                    insertCell(table, "Salto Largo", Element.ALIGN_LEFT, 1, bfBold12);
+                    insertCell(table, "Salto Alto", Element.ALIGN_LEFT, 1, bfBold12);
+                    insertCell(table, "IMC", Element.ALIGN_LEFT, 1, bfBold12);
+                    table.setHeaderRows(1);
+                    //Insertar informacion
+                    for (int i = 0; i < equipo.getJugadores().size(); i++) {
+                        Reporte reporte = new Reporte(equipo.getJugadores().get(i));
+                        insertCell(table, equipo.getJugadores().get(i).getNombre_completo() + " (" + equipo.getJugadores().get(i).getCedula() + ")", Element.ALIGN_LEFT, 1, bf12);
+                        insertCell(table, reporte.getResultado_burpee(), Element.ALIGN_LEFT, 1, bf12);
+                        insertCell(table, reporte.getResultado_cooper(), Element.ALIGN_LEFT, 1, bf12);
+                        insertCell(table, reporte.getResultado_elasticidad(), Element.ALIGN_LEFT, 1, bf12);
+                        insertCell(table, reporte.getResultado_fuerzaBrazos(), Element.ALIGN_LEFT, 1, bf12);
+                        insertCell(table, reporte.getResultado_ruffier(), Element.ALIGN_LEFT, 1, bf12);
+                        insertCell(table, reporte.getResultado_salgoLargo(), Element.ALIGN_LEFT, 1, bf12);
+                        insertCell(table, reporte.getResultado_saltoAlto(), Element.ALIGN_LEFT, 1, bf12);
+                        insertCell(table, reporte.getResultado_IMC(), Element.ALIGN_LEFT, 1, bf12);
+                    }
+                    //Añadir pdf al paraffo
+                    parrafo.add(table);
+                    //Añadir parrafo al documento
+                    doc.add(parrafo);
+                    doc.close();
+                    docWriter.close();
+                    response.setContentType("application/pdf");
+                    response.setHeader("Content-disposition", "inline; filename=reporte " + equipo.getId() + ".pdf");
+
+                    ServletOutputStream sos = response.getOutputStream();
+                    baosPDf.writeTo(sos);
+                    sos.flush();
+                } else {
                     //Equipo no encontrado
-                    //request.getSession().setAttribute("mensaje", "El equipo buscado no existe");
-                    //request.getRequestDispatcher("Error.jsp").forward(request, response); -> un timer aqui que mande a Generar-Reporte.jsp
+                    request.getSession().setAttribute("mensaje", "El equipo buscado no existe");
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
                 }
             } catch (Exception e) {
                 //Error bd
-                response.setContentType("text/html;charset=UTF-8");
-                try (PrintWriter out = response.getWriter()) {
-                    out.println("<!DOCTYPE html>");
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<title>Servlet RegistrarInfoBasicaEquipo</title>");
-                    out.println("</head>");
-                    out.println("<body>");
-                    out.println("<h1>error</h1>");
-                    out.println("<h1>" + e.getMessage() + "</h1>");
-                    out.println("<h5>Equipo buscado</h5>");
-                    out.println("</body>");
-                    out.println("</html>");
-                }
+                request.getSession().setAttribute("mensaje", "Hubo un problema, porfavor pruebe mas tarde");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
             }
 
             //Eliminar variables
-            
-            
-            /*PDF
-            // Obteniendo output stream del servlet 
-            ServletOutputStream sOut = response.getOutputStream();
-            response.setContentType("application/pdf");
-            response.setHeader("Content-disposition", "attachment; filename=" + "reporte ID" + id + ".pdf");
-
-            //Crear formato de pagina para el documento            
-            PageFormat pageFormat = new PageFormat();
-            Paper pagina = new Paper();
-            pagina.setSize(72 * 8.5, 72 * 11.0);
-            pageFormat.setOrientation(PageFormat.LANDSCAPE);
-            pageFormat.setPaper(pagina);
-
-            //Crear documento y una pagina en el documento
-            PDFDocument pdfDoc = new PDFDocument();
-            PDFPage nuevaPagina = pdfDoc.createPage(pageFormat);
-
-            // Draw to the page
-            Graphics2D g2d = nuevaPagina.createGraphics();
-            g2d.drawString("This is a PDF document created from a servlet", 100, 100);
-
-            // Add the page to the document
-            pdfDoc.addPage(nuevaPagina);
-
-            // Save the document to the servlet output stream.  This goes directly to the browser
-            pdfDoc.saveDocument(sOut);
-
-            // Close the server output stream
-            sOut.close();
-             */
+            Registro.getInstance().getEquipos().remove(equipo);
+            request.getSession().removeAttribute("idEquipo");
         } catch (Exception e) {
-            //Mensajes de error
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Servlet RegistrarInfoBasicaEquipo</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Excepcion capturada " + e.getMessage() + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+            //Acceso directo
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 
@@ -178,5 +165,16 @@ public class GenerarReporte extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void insertCell(PdfPTable table, String text, int align, int colspan, Font font) {
+
+        PdfPCell cell = new PdfPCell(new Phrase(text.trim(), font));
+        cell.setHorizontalAlignment(align);
+        cell.setColspan(colspan);
+        if (text.trim().equalsIgnoreCase("")) {
+            cell.setMinimumHeight(10f);
+        }
+        table.addCell(cell);
+    }
 
 }

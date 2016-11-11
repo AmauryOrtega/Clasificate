@@ -1,28 +1,14 @@
 package controlador;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.persistencia.Equipo;
 
-/**
- *
- * @author Amaury Ortega
- */
 public class RegistrarInfoBasicaEquipo extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
@@ -32,23 +18,11 @@ public class RegistrarInfoBasicaEquipo extends HttpServlet {
             Equipo equipo = new Equipo(nombreEquipo, nacionalidad);
             //Guardado de variable en sesion
             request.getSession().setAttribute("equipo", equipo);
-            //Eliminacion de variables
-            //TODO
             request.getRequestDispatcher("Registrar-Jugador.jsp").forward(request, response);
         } catch (Exception e) {
             //Mensajes de error
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Servlet RegistrarInfoBasicaEquipo</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Excepcion capturada " + e.getMessage() + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
+            request.getSession().setAttribute("mensaje", "Error inesperado, porfavor intente mas tarde");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 
