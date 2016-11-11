@@ -1,15 +1,23 @@
-<!DOCTYPE html>
+<%-- 
+    Document   : ok
+    Created on : 10/11/2016, 09:06:05 PM
+    Author     : Amaury Ortega
+--%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    Integer id = (Integer)request.getSession().getAttribute("id");
+%>
+<!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="icon" href="img/favicon.png" type="imagen/png ">
         <title>CLASIFICATE- Confirmacion</title>
         <meta charset="utf-8" />
 
-        <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
         <meta name="viewport" content="width-device-width, initial-scale=1.0">
     </head>
-    <body>
+    <body class="body">
         <header id="main-header">
 
             <a id="logo-header" href="#">
@@ -18,24 +26,19 @@
                 </div>		
             </a> 
         </header>
-
-
         <br><section class="body">
             <div class="logo"><center><img  src="img/logo.png"></center></div>
             <hr></hr>
 
-            <center>EL EQUIPO HA SIDO REGISTRADO CON EXITO </center>
+            <center>EL EQUIPO HA SIDO REGISTRADO CON EXITO.</center>
+            <center>SU ID ES <%=id%></center>
 
             <hr></hr> 
 
         </section>
-
-        <div class="contenedor">
-            <form  action="/my-handling-form-page">
-                El ID del equipo es: 
-                <div class= "boton"><center><button type="submit"><a href="index.html">Inicio</a></button></center></div>
-            </form>
-        </div>
+        <div class="botones">
+            <div class= "boton"><center><button><a href="index.jsp">Inicio</button></center></div>
+        </div>    
 
         <footer id="main-footer">
             <p> 2016 &copy; Clasificate<br>
@@ -47,3 +50,7 @@
     </body>
 
 </html>
+
+<%
+    request.getSession().removeAttribute("id");
+%>

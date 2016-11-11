@@ -1,0 +1,3 @@
+http://localhost:8080/clasificate/registrarinfobasicaequipo?txtNombre=equipo&txtNacionalidad=colombia
+http://localhost:8080/clasificate/registrarjugador?txtNombre=amaury&txtID=1143397229&sexo=MASCULINO&edad=15&txtCooper=123.3&txtBurpee=12&txtFBrazos=12&txtSAlto=12.3&txtSLargo=12.3&txtElasticidad=12&ruffierP1=100&ruffierP2=100&ruffierP3=50&txtPeso=12.3&txtAltura=2
+http://localhost:8080/clasificate/registrarequipo?txtNombre=amaury2&txtID=999999999&sexo=MASCULINO&edad=19&txtCooper=10000&txtBurpee=12&txtFBrazos=12&txtSAlto=12.3&txtSLargo=12.3&txtElasticidad=12&ruffierP1=100&ruffierP2=100&ruffierP3=50&txtPeso=12.3&txtAltura=2

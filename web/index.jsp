@@ -1,3 +1,10 @@
+<%-- 
+    Document   : index
+    Created on : 8/11/2016, 10:26:01 PM
+    Author     : Julian
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -5,17 +12,14 @@
         <link rel="icon" href="img/favicon.png" type="imagen/png ">
         <title>CLASIFICATE</title>
         <meta charset="utf-8" />
-
-        <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
         <meta name="viewport" content="width-device-width, initial-scale=1.0">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     </head>
     <body>
-
-
         <header id="main-header">
 
-            <a id="logo-header" href="#">
+            <a id="logo-header" href="index.jsp">
                 <div class="logot"><img src="img/logotipo.png">
                     <span class="site-name">CLASIFICATE</span>
                 </div>		
@@ -35,7 +39,7 @@
 
 
         <div class="botones">
-            <div class= "boton" ><center> <button type="submit"><a href="Registrar-Equipo.html">Registrar Equipo</a></button></center></div>
+            <div class= "boton" ><center> <button type="submit"><a href="Registrar-Equipo.jsp">Registrar Equipo</a></button></center></div>
 
             <div class= "boton"><center><button type="submit"><a href="Generar-Reporte.html">Generar Reporte </a></button></center></div>
         </div>

@@ -1,12 +1,20 @@
+<%-- 
+    Document   : exitoJugador
+    Created on : 9/11/2016, 01:49:58 PM
+    Author     : Julian
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="es">
     <head>
         <link rel="icon" href="img/favicon.png" type="imagen/png ">
         <title>CLASIFICATE- Confirmacion</title>
         <meta charset="utf-8" />
-
-        <link rel="stylesheet" type="text/css" href="style.css" />
+        <META HTTP-EQUIV="REFRESH" CONTENT="5;URL=Registrar-Jugador.jsp">
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
         <meta name="viewport" content="width-device-width, initial-scale=1.0">
     </head>
     <body>
@@ -23,19 +31,13 @@
         <br><section class="body">
             <div class="logo"><center><img  src="img/logo.png"></center></div>
             <hr></hr>
-
-            <center>EL EQUIPO HA SIDO REGISTRADO CON EXITO </center>
+            <%-- Mensaje a modificar --%> 
+            <center>EL JUGADOR HA SIDO REGISTRADO CON EXITO</center>
+            <center>POR FAVOR ESPERE UNOS SEGUNDOS</center>
 
             <hr></hr> 
 
         </section>
-
-        <div class="contenedor">
-            <form  action="/my-handling-form-page">
-                El ID del equipo es: 
-                <div class= "boton"><center><button type="submit"><a href="index.html">Inicio</a></button></center></div>
-            </form>
-        </div>
 
         <footer id="main-footer">
             <p> 2016 &copy; Clasificate<br>
@@ -47,3 +49,9 @@
     </body>
 
 </html>
+
+<script>
+  setTimeout(function() {
+      document.location = "Registrar-Jugador.jsp";
+  }, 3000); // <-- this is the delay in milliseconds
+</script>
