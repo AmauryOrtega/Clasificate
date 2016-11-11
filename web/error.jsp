@@ -22,7 +22,7 @@
     <body>
         <header id="main-header">
 
-            <a id="logo-header" href="#">
+            <a id="logo-header" href="index.jsp">
                 <div class="logot"><img src="img/logotipo.png">
                     <span class="site-name">CLASIFICATE</span>
                 </div>		
