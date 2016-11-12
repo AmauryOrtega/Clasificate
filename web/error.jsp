@@ -14,7 +14,6 @@
         <link rel="icon" href="img/favicon.png" type="imagen/png ">
         <title>CLASIFICATE- Confirmacion</title>
         <meta charset="utf-8" />
-        <META HTTP-EQUIV="REFRESH" CONTENT="5;URL=Registrar-Jugador.jsp">
         <link rel="stylesheet" type="text/css" href="css/style.css" />
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
         <meta name="viewport" content="width-device-width, initial-scale=1.0">
