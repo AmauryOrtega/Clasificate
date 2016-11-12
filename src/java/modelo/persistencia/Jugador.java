@@ -12,7 +12,7 @@ package modelo.persistencia;
 public class Jugador {
 
     private float altura;
-    private int cedula;
+    private String cedula;
     private int edad;
     private Mediciones mediciones;
     private String nombre_completo;
@@ -23,7 +23,7 @@ public class Jugador {
 
     }
 
-    public Jugador(float altura, int cedula, int edad, String nombre_completo, float peso, String sexo) {
+    public Jugador(float altura, String cedula, int edad, String nombre_completo, float peso, String sexo) {
         this.altura = altura;
         this.cedula = cedula;
         this.edad = edad;
@@ -32,7 +32,7 @@ public class Jugador {
         this.sexo = sexo;
     }
 
-    public Jugador(float altura, int cedula, int edad, Mediciones mediciones, String nombre_completo, float peso, String sexo) {
+    public Jugador(float altura, String cedula, int edad, Mediciones mediciones, String nombre_completo, float peso, String sexo) {
         this.altura = altura;
         this.cedula = cedula;
         this.edad = edad;
@@ -52,13 +52,15 @@ public class Jugador {
         this.altura = altura;
     }
 
-    public int getCedula() {
+    public String getCedula() {
         return cedula;
     }
 
-    public void setCedula(int cedula) {
+    public void setCedula(String cedula) {
         this.cedula = cedula;
     }
+
+
 
     public int getEdad() {
         return edad;

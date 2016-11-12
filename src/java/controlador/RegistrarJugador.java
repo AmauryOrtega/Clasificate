@@ -16,7 +16,7 @@ public class RegistrarJugador extends HttpServlet {
 
         //Obtencion de informacion
         String nombreJ = request.getParameter("txtNombre");
-        int cedulaJ = Integer.parseInt(request.getParameter("txtID"));
+        String cedulaJ = request.getParameter("txtID");
         String sexoJ = request.getParameter("sexo");
         int edadJ = Integer.parseInt(request.getParameter("edad"));
         float cooper = 0;

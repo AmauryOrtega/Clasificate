@@ -1,6 +1,7 @@
 package controlador;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,7 @@ public class RegistrarEquipo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String nombreJ = "";
-        int cedulaJ = 0;
+        String cedulaJ = "";
         String sexoJ = "";
         int edadJ = 0;
         float cooper = 0;
@@ -29,10 +30,11 @@ public class RegistrarEquipo extends HttpServlet {
         float peso = 0;
         float altura = 0;
         int elasticidad = 0;
+
         try {
             //Obtencion de informacion
             nombreJ = request.getParameter("txtNombre");
-            cedulaJ = Integer.parseInt(request.getParameter("txtID"));
+            cedulaJ = request.getParameter("txtID");
             sexoJ = request.getParameter("sexo");
             edadJ = Integer.parseInt(request.getParameter("edad"));
 
@@ -75,57 +77,54 @@ public class RegistrarEquipo extends HttpServlet {
                 } catch (NumberFormatException e1) {
                     altura = Float.parseFloat(request.getParameter("txtAltura").replace(',', '.'));
                 }
-            } catch (Exception e2) {
+            }
+            //Fin Obtencion de informacion
+
+            Jugador jugador = null;
+            Equipo equipo = null;
+            try {
+                jugador = new Jugador(altura, cedulaJ, edadJ, new Mediciones(burpee, cooper, elasticidad, fuerzaBrazos, ruffierP1, ruffierP2, ruffierP3, saltoAlto, saltoLargo), nombreJ, peso, sexoJ);
+                equipo = (Equipo) request.getSession().getAttribute("equipo");
+                equipo.agregarJugador(jugador);
+            } catch (Exception e) {
+                //Mensajes de error
+                request.getSession().setAttribute("mensaje", "Hubo un problema obteniendo los datos del jugador a crear");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            } catch (Throwable ex) {
+                //Mensajes de error
                 request.getSession().setAttribute("mensaje", "Hubo un problema obteniendo los datos del jugador a crear");
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
-            //Fin Obtencion de informacion
+
+            //Almacenado BD
+            try {
+                BaseDeDatos bd = new BaseDeDatos();
+                bd.registrarEquipo(equipo);
+                equipo.finalize();
+                bd.finalize();
+            } catch (Exception e) {
+                //Mensajes de error
+                request.getSession().setAttribute("mensaje", "Hubo un problema con la base de datos, porfavor pruebe mas tarde");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            } catch (Throwable ex) {
+                response.setContentType("text/html;charset=UTF-8");
+                request.getSession().setAttribute("mensaje", "Hubo un problema con la base de datos, porfavor pruebe mas tarde");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+
+            //ID
+            request.getSession().setAttribute("id", equipo.getId());
+            request.getRequestDispatcher("ok.jsp").forward(request, response);
+            try {
+                // Eliminar variables
+                equipo.finalize();
+                request.getSession().removeAttribute("equipo");
+            } catch (Throwable ex) {
+                request.getSession().setAttribute("mensaje", "Hubo un problema elimiando valores de sesion, porfavor pruebe mas tarde");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
         } catch (Exception avoid) {
             request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
-
-        Jugador jugador = null;
-        Equipo equipo = null;
-        try {
-            jugador = new Jugador(altura, cedulaJ, edadJ, new Mediciones(burpee, cooper, elasticidad, fuerzaBrazos, ruffierP1, ruffierP2, ruffierP3, saltoAlto, saltoLargo), nombreJ, peso, sexoJ);
-            equipo = (Equipo) request.getSession().getAttribute("equipo");
-            equipo.agregarJugador(jugador);
-        } catch (Exception e) {
-            //Mensajes de error
-            request.getSession().setAttribute("mensaje", "Hubo un problema obteniendo los datos del jugador a crear");
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-        } catch (Throwable ex) {
-            //Mensajes de error
-            request.getSession().setAttribute("mensaje", "Hubo un problema obteniendo los datos del jugador a crear");
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
-
-        //Almacenado BD
-        try {
-            BaseDeDatos bd = new BaseDeDatos();
-            bd.registrarEquipo(equipo);
-            equipo.finalize();
-            bd.finalize();
-        } catch (Exception e) {
-            //Mensajes de error
-            request.getSession().setAttribute("mensaje", "Hubo un problema con la base de datos, porfavor pruebe mas tarde");
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-        } catch (Throwable ex) {
-            response.setContentType("text/html;charset=UTF-8");
-            request.getSession().setAttribute("mensaje", "Hubo un problema con la base de datos, porfavor pruebe mas tarde");
-            request.getRequestDispatcher("error.jsp").forward(request, response);
-        }
-
-        //ID
-        request.getSession().setAttribute("id", equipo.getId());
-        request.getRequestDispatcher("ok.jsp").forward(request, response);
-        try {
-            // Eliminar variables
-            equipo.finalize();
-            request.getSession().removeAttribute("equipo");
-        } catch (Throwable ex) {
-            request.getSession().setAttribute("mensaje", "Hubo un problema elimiando valores de sesion, porfavor pruebe mas tarde");
-            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
 
     }

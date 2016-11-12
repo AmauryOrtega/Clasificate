@@ -35,7 +35,7 @@
             <hr></hr>
         </section>
         <div class="contenedor">
-            <form onsubmit="return validarJugador()" action="registrarjugador" name="formJ">
+            <form onsubmit="return validarJugador()" name="formJ">
 
                 <div>
                     <label for="name">Nombre del Jugador</label>
@@ -57,23 +57,23 @@
                 <hr> </hr><center>Medidas de pruebas fisico-tecnicas</center><hr></hr>
                 <div>
                     <label for="cooper">Cooper (metros)</label>
-                    <input type="number" step="0.01" size="10" name="txtCooper" min="-1" id="metroscooper"/>               
+                    <input type="number" step="0.01" size="10" name="txtCooper" min="0" id="metroscooper"/>               
                 </div>               
                 <div>
                     <label for="burpee">Burpee (cantidad)</label>
-                    <input type="number" size="10" name="txtBurpee" min="-1" id="cantidadburpee"/>
+                    <input type="number" size="10" name="txtBurpee" min="0" id="cantidadburpee"/>
                 </div>
                 <div>
                     <label for="fuerzabrazos">Fuerza brazos (cantidad)</label>
-                    <input type="number" size="10" min="-1" name="txtFBrazos" id="fuerzabrazoscantidad"/>
+                    <input type="number" size="10" min="0" name="txtFBrazos" id="fuerzabrazoscantidad"/>
                 </div>
                 <div>
-                    <label for="saltoalto">Salto alto (metros) </label>
-                    <input type="number" step="0.01" size="10" min="-1" name="txtSAlto" id="saltoaltometros"/>
+                    <label for="saltoalto">Salto alto (cm) </label>
+                    <input type="number" step="0.01" size="10" min="0" name="txtSAlto" id="saltoaltometros"/>
                 </div>
                 <div>
                     <label for="saltolargo">Salto largo (metros) </label>
-                    <input type="number" step="0.01" size="10"  min="-1" name="txtSLargo" id="saltolargometrosHorizontal"/>
+                    <input type="number" step="0.01" size="10"  min="0" name="txtSLargo" id="saltolargometrosHorizontal"/>
                 </div>
                 <div>
                     <label for="elasticidad">Elasticidad (cantidad) </label>
@@ -81,18 +81,18 @@
                 </div>
                 <div>
                     <label for="ruffier">Ruffier (pulsos) </label>
-                    P1: <input type="number" step="1" min="-1" max="200" size="2" name="ruffierP1" id="ruffierP1"/>
-                    p2: <input type="number" step="1" min="-1" max="200" size="2" name="ruffierP2" id="ruffierP2"/>
-                    p3: <input type="number" step="1" min="-1" max="200" size="2" name="ruffierP3" id="ruffierP3"/>                  
+                    P1: <input type="number" step="1" min="0" max="200" size="2" name="ruffierP1" id="ruffierP1"/>
+                    p2: <input type="number" step="1" min="0" max="200" size="2" name="ruffierP2" id="ruffierP2"/>
+                    p3: <input type="number" step="1" min="0" max="200" size="2" name="ruffierP3" id="ruffierP3"/>                  
                 </div>               
                 <div>
                     <label for="imc">IMC </label>
-                    Peso(Kg): <input type="number" step="0.01" min="-1" max="120" size="5" name="txtPeso" id="imcpeso"/>
+                    Peso(Kg): <input type="number" step="0.01" min="0" max="150" size="5" name="txtPeso" id="imcpeso"/>
                     Altura(m): <input type="number" step="0.01" min="0" max="3" size="5" name="txtAltura" id="imctalla"/>
                 </div>              
                 <div class="botones">
-                    <div class= "boton"><center><button id="btnEnviar" type="submit">Guardar Jugador y Añadir nuevo</button></center></div>
-                    <div class= "boton" ><center> <button><a href="registrarequipo">Guardar Jugador y Terminar</button></center></div>                   
+                    <div class= "boton"><center><button id="btnEnviar" type="submit" onclick="form.action='registrarjugador'">Guardar Jugador y Añadir nuevo</button></center></div>
+                    <div class= "boton" ><center><button id="btnEnviar2" type="submit" onclick="form.action='registrarequipo'">Guardar Jugador y Terminar</button></center></div>                   
                 </div>
             </form>
         </div>    

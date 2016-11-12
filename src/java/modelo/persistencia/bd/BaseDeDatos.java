@@ -65,21 +65,21 @@ public class BaseDeDatos extends Conexion {
                     System.out.println("Error buscando jugadores del equipo en bd\n" + ex.getMessage());
                 }
                 try {
-                    while(rs.next()){
+                    while (rs.next()) {
                         jugador = new Jugador();
                         Mediciones mediciones = new Mediciones(
-                                Integer.parseInt(rs.getString("burpeeCantidad")), 
-                                Float.parseFloat(rs.getString("cooperCantidad")), 
-                                Integer.parseInt(rs.getString("elasticidadCantidad")), 
-                                Integer.parseInt(rs.getString("fuerzaBrazosCantidad")), 
-                                Float.parseFloat(rs.getString("ruffierP1")), 
-                                Float.parseFloat(rs.getString("ruffierP2")), 
-                                Float.parseFloat(rs.getString("ruffierP3")), 
-                                Float.parseFloat(rs.getString("saltoAltoDistancia")), 
+                                Integer.parseInt(rs.getString("burpeeCantidad")),
+                                Float.parseFloat(rs.getString("cooperCantidad")),
+                                Integer.parseInt(rs.getString("elasticidadCantidad")),
+                                Integer.parseInt(rs.getString("fuerzaBrazosCantidad")),
+                                Float.parseFloat(rs.getString("ruffierP1")),
+                                Float.parseFloat(rs.getString("ruffierP2")),
+                                Float.parseFloat(rs.getString("ruffierP3")),
+                                Float.parseFloat(rs.getString("saltoAltoDistancia")),
                                 Float.parseFloat(rs.getString("saltoLargoDistancia"))
                         );
                         jugador.setNombre_completo(rs.getString("nombre_completo"));
-                        jugador.setCedula(Integer.parseInt(rs.getString("cedula")));
+                        jugador.setCedula(rs.getString("cedula"));
                         jugador.setSexo(rs.getString("sexo"));
                         jugador.setEdad(Integer.parseInt(rs.getString("edad")));
                         jugador.setPeso(Float.parseFloat(rs.getString("peso")));
@@ -142,11 +142,11 @@ public class BaseDeDatos extends Conexion {
             stmt = con.createStatement();
             for (int i = 0; i < equipo.getJugadores().size(); i++) {
                 stmt.executeUpdate("INSERT INTO jugador VALUES(NULL,"
-                        + equipo.getJugadores().get(i).getCedula() + ","
+                        + "'" + equipo.getJugadores().get(i).getCedula() + "'" + ","
                         + "'" + equipo.getJugadores().get(i).getSexo() + "'" + ","
                         + equipo.getJugadores().get(i).getEdad() + ","
                         + "'" + equipo.getJugadores().get(i).getNombre_completo() + "'" + ","
-                        + equipo.getJugadores().get(i).getAltura()+ ","
+                        + equipo.getJugadores().get(i).getAltura() + ","
                         + equipo.getJugadores().get(i).getPeso() + ","
                         + equipo.getJugadores().get(i).getMediciones().getFuerzaBrazosCantidad() + ","
                         + equipo.getJugadores().get(i).getMediciones().getBurpeeCantidad() + ","
