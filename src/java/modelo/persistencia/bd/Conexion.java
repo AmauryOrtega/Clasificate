@@ -2,11 +2,6 @@ package modelo.persistencia.bd;
 
 import java.sql.*;
 
-/**
- * @author Amaury Ortega
- * @version 1.0
- * @created 07-Nov.-2016 1:15:37 p. m.
- */
 public class Conexion {
 
     private static String CLASSNAME = "com.mysql.jdbc.Driver";

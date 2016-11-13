@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.generarReporte;
 
 import modelo.persistencia.Jugador;
 
-/**
- *
- * @author Amaury Ortega
- */
 public class Calculo {
 
     public static String calcular_burpee(Jugador jugador) {
@@ -30,8 +21,7 @@ public class Calculo {
                 return "Excelente";
             }
         } else //Femenino
-        {
-            if (jugador.getMediciones().getBurpeeCantidad() < 20) {
+         if (jugador.getMediciones().getBurpeeCantidad() < 20) {
                 return "Malo";
             } else if (jugador.getMediciones().getBurpeeCantidad() >= 20 && jugador.getMediciones().getBurpeeCantidad() <= 30) {
                 return "Normal";
@@ -42,7 +32,6 @@ public class Calculo {
             } else if (jugador.getMediciones().getBurpeeCantidad() > 50) {
                 return "Excelente";
             }
-        }
         return "N/A";
     }
 
@@ -64,8 +53,7 @@ public class Calculo {
                     return "Muy Bajo";
                 }
             } else //Femenino
-            {
-                if (jugador.getMediciones().getCooperDistancia() > 2000) {
+             if (jugador.getMediciones().getCooperDistancia() > 2000) {
                     return "Muy Bueno";
                 } else if (jugador.getMediciones().getCooperDistancia() >= 1900 && jugador.getMediciones().getCooperDistancia() <= 2000) {
                     return "Bueno";
@@ -76,7 +64,6 @@ public class Calculo {
                 } else if (jugador.getMediciones().getCooperDistancia() < 1500) {
                     return "Muy Bajo";
                 }
-            }
         } else if (jugador.getEdad() > 15 && jugador.getEdad() <= 19) {
             if (jugador.getSexo().equals("MASCULINO")) {
                 //Masculino
@@ -92,8 +79,7 @@ public class Calculo {
                     return "Muy Bajo";
                 }
             } else //Femenino
-            {
-                if (jugador.getMediciones().getCooperDistancia() > 2100) {
+             if (jugador.getMediciones().getCooperDistancia() > 2100) {
                     return "Muy Bueno";
                 } else if (jugador.getMediciones().getCooperDistancia() >= 2000 && jugador.getMediciones().getCooperDistancia() <= 2100) {
                     return "Bueno";
@@ -104,7 +90,6 @@ public class Calculo {
                 } else if (jugador.getMediciones().getCooperDistancia() < 1600) {
                     return "Muy Bajo";
                 }
-            }
         }
         return "N/A";
     }
@@ -130,7 +115,8 @@ public class Calculo {
                 return "Muy Pobre";
             }
         } else //Femenino
-         if (jugador.getMediciones().getElasticidadCantidad() > 30) {
+        {
+            if (jugador.getMediciones().getElasticidadCantidad() > 30) {
                 return "Superior";
             } else if (jugador.getMediciones().getElasticidadCantidad() >= 21 && jugador.getMediciones().getElasticidadCantidad() <= 30) {
                 return "Excelente";
@@ -145,6 +131,7 @@ public class Calculo {
             } else if (jugador.getMediciones().getElasticidadCantidad() <= 15) {
                 return "Muy Pobre";
             }
+        }
         return "N/A";
     }
 
@@ -166,8 +153,7 @@ public class Calculo {
                     return "Muy Bajo";
                 }
             } else //Femenino
-            {
-                if (jugador.getMediciones().getFuerzaBrazosCantidad() > 25) {
+             if (jugador.getMediciones().getFuerzaBrazosCantidad() > 25) {
                     return "Muy Bueno";
                 } else if (jugador.getMediciones().getFuerzaBrazosCantidad() >= 18 && jugador.getMediciones().getFuerzaBrazosCantidad() <= 25) {
                     return "Bueno";
@@ -178,7 +164,6 @@ public class Calculo {
                 } else if (jugador.getMediciones().getFuerzaBrazosCantidad() < 4) {
                     return "Muy Bajo";
                 }
-            }
         } else if (jugador.getEdad() > 17 && jugador.getEdad() <= 20) {
             if (jugador.getSexo().equals("MASCULINO")) {
                 //Masculino
@@ -194,8 +179,7 @@ public class Calculo {
                     return "Muy Bajo";
                 }
             } else //Femenino
-            {
-                if (jugador.getMediciones().getFuerzaBrazosCantidad() > 30) {
+             if (jugador.getMediciones().getFuerzaBrazosCantidad() > 30) {
                     return "Muy Bueno";
                 } else if (jugador.getMediciones().getFuerzaBrazosCantidad() >= 20 && jugador.getMediciones().getFuerzaBrazosCantidad() <= 30) {
                     return "Bueno";
@@ -206,7 +190,6 @@ public class Calculo {
                 } else if (jugador.getMediciones().getFuerzaBrazosCantidad() < 5) {
                     return "Muy Bajo";
                 }
-            }
         }
         return "N/A";
     }
@@ -244,7 +227,8 @@ public class Calculo {
                     return "Pobre";
                 }
             } else //Femenino
-             if (jugador.getMediciones().getSaltoAltoDistancia() > 55) {
+            {
+                if (jugador.getMediciones().getSaltoAltoDistancia() > 55) {
                     return "Excelente";
                 } else if (jugador.getMediciones().getSaltoAltoDistancia() >= 41 && jugador.getMediciones().getSaltoAltoDistancia() <= 55) {
                     return "Bueno";
@@ -255,6 +239,7 @@ public class Calculo {
                 } else if (jugador.getMediciones().getSaltoAltoDistancia() <= 25) {
                     return "Pobre";
                 }
+            }
         }
         return "N/A";
     }
@@ -277,7 +262,8 @@ public class Calculo {
                     return "Muy Bajo";
                 }
             } else //Femenino
-             if (jugador.getMediciones().getSaltoLargoDistancia() >= 1.8) {
+            {
+                if (jugador.getMediciones().getSaltoLargoDistancia() >= 1.8) {
                     return "Muy Bueno";
                 } else if (jugador.getMediciones().getSaltoLargoDistancia() >= 1.7 && jugador.getMediciones().getSaltoLargoDistancia() < 1.8) {
                     return "Bueno";
@@ -288,6 +274,7 @@ public class Calculo {
                 } else if (jugador.getMediciones().getSaltoLargoDistancia() < 1.5) {
                     return "Muy Bajo";
                 }
+            }
         } else if (jugador.getEdad() >= 17 && jugador.getEdad() <= 20) {
             if (jugador.getSexo().equals("MASCULINO")) {
                 //Masculino
@@ -303,7 +290,8 @@ public class Calculo {
                     return "Muy Bajo";
                 }
             } else //Femenino
-             if (jugador.getMediciones().getSaltoLargoDistancia() >= 1.9) {
+            {
+                if (jugador.getMediciones().getSaltoLargoDistancia() >= 1.9) {
                     return "Muy Bueno";
                 } else if (jugador.getMediciones().getSaltoLargoDistancia() >= 1.8 && jugador.getMediciones().getSaltoLargoDistancia() < 1.9) {
                     return "Bueno";
@@ -314,11 +302,12 @@ public class Calculo {
                 } else if (jugador.getMediciones().getSaltoLargoDistancia() < 1.6) {
                     return "Muy Bajo";
                 }
+            }
         }
         return "N/A";
     }
 
-    static String calcular_IMC(Jugador jugador) {
+    public static String calcular_IMC(Jugador jugador) {
         float imc = jugador.getPeso() / (jugador.getAltura() * jugador.getAltura());
         if (imc >= 0 && imc <= 5) {
             return "Delgadez III";

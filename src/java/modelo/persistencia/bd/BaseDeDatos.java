@@ -8,11 +8,6 @@ import modelo.persistencia.Jugador;
 import modelo.persistencia.Mediciones;
 import modelo.persistencia.Registro;
 
-/**
- * @author Amaury Ortega
- * @version 1.0
- * @created 07-Nov.-2016 1:15:34 p. m.
- */
 public class BaseDeDatos extends Conexion {
 
     public BaseDeDatos() {

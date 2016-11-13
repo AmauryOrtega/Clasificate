@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.persistencia;
 
-/**
- *
- * @author Amaury Ortega
- */
 public class Jugador {
 
     private float altura;
@@ -41,8 +32,6 @@ public class Jugador {
         this.peso = peso;
         this.sexo = sexo;
     }
-    
-    
 
     public float getAltura() {
         return altura;
@@ -59,8 +48,6 @@ public class Jugador {
     public void setCedula(String cedula) {
         this.cedula = cedula;
     }
-
-
 
     public int getEdad() {
         return edad;
@@ -106,14 +93,10 @@ public class Jugador {
     public String toString() {
         return "Jugador{" + "altura=" + altura + ", cedula=" + cedula + ", edad=" + edad + ", mediciones=" + mediciones + ", nombre_completo=" + nombre_completo + ", peso=" + peso + ", sexo=" + sexo + '}';
     }
-    
-    
 
     @Override
     public void finalize() throws Throwable {
         super.finalize();
     }
 
-    
-    
 }
