@@ -114,7 +114,7 @@ public class GenerarReporte extends HttpServlet {
                 }
             } catch (Exception e) {
                 //Error bd
-                request.getSession().setAttribute("mensaje", "Hubo un problema, porfavor pruebe mas tarde");
+                request.getSession().setAttribute("mensaje", "Hubo un problema con la base de datos, porfavor pruebe mas tarde");
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
 
