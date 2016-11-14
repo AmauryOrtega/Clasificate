@@ -11,7 +11,7 @@ public class Conexion {
     private static String PASSWORD = "clasificate";
     private static String PORT = "3306";
     private static String URL = "jdbc:mysql://localhost:" + PORT + "/" + DATABASE;
-    private static String USERNAME = "usuario_clasificate";
+    private static String USERNAME = "usr_clasificate";
 
     public Conexion() {
         try {
